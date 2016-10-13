@@ -4,8 +4,9 @@ Tiangis in Angular (Tiangular)
 
 ## Todo
 
-- [] Add Paypal
-- [] Manage Inventory
+- [ ] Add Paypal
+- [ ] Add Stripe
+- [ ] Manage Inventory
 
 ## Demo
 
