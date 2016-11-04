@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-lg-8">
+      <!-- items -->
+      <table class="table table-striped table-inverse">
+        <!-- header -->
+        <tr>
+          <td>Item</td>
+          <td>Price</td>
+          <td>Quantity</td>
+        </tr>
+        <!-- empty cart message -->
+        <tr ng-hide="cart.getTotalCount() > 0">
+          <td>Your cart is empty.</td>
+        </tr>
+        <!-- cart items -->
+        <tr ng-repeat="item in cart.items | orderBy:'name'">
+          <td>{{item.name}}</td>
+          <td>
+            <div class="input-append">
+              <!-- use type=tel instead of  to prevent spinners -->
+              <input class="span3 text-center" type="tel" ng-model="item.quantity" ng-change="cart.saveItems()" />
+              <button class="btn btn-success" type="button" ng-disabled="item.quantity >= 1000" ng-click="cart.addItem(item.sku, item.name, item.price, +1)">+</button>
+              <button class="btn btn-inverse" type="button" ng-disabled="item.quantity <= 1" ng-click="cart.addItem(item.sku, item.name, item.price, -1)">-</button>
+            </div>
+          </td>
+          <td>{{item.price * item.quantity | currency}}</td>
+          <td title="remove from cart">
+            <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)">
+              <i class="icon-remove" />
+            </a>
+          </td>
+        </tr>
+        <!-- footer -->
+        <tr>
+          <td>Total</td>
+          <td>{{cart.getTotalCount()}}</td>
+          <td>{{cart.getTotalPrice() | currency}}</td>
+          <td>
+            <button class="btn btn-block btn-danger" ng-click="cart.clearItems()" ng-disabled="cart.getTotalCount() < 1">
+<i class="icon-trash icon-white" /> clear cart</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- Checkout -->
+    <div class="col-xs-6 col-lg-4">
+      <div class="card card-block text-xs-center">
+        <h3 class="card-title">Total</h3>
+        <h3 class="card-title">{{cart.getTotalCount()}}</h3>
+        <p class="card-text">Price</p>
+        <p class="card-text">{{cart.getTotalPrice() | currency}}</p>
+        <button type="button" class="btn btn-outline-primary btn-lg">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
